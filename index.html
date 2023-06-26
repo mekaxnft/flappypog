@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Flappy Pog</title>
+        <meta name="viewport" content="height=device-height, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+        <link rel="stylesheet" type="text/css" href="index.css">
+        <!-- Fonts  -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&display=swap" rel="stylesheet">
+        <!-- Fonts  -->
+
+        <link rel="icon" href="images/pog.png">
+    </head>
+    <body>
+        <div class="loadingScreen"></div>
+        <canvas id="backgroundCanvas"></canvas>
+        <div id="pauseButton" class="pause-button">
+            <span></span>
+        </div>
+        <div class="menuWindow" id="mainMenu">
+            <div class="menuTitle" id="maintextTitle"><b> FLAPPYPOG</b></div>
+            <div class="button" id="login"><b>START GAME</b></div>
+            <div class="button" id="scoreboard"><b>LEADERBOARD </b></div>
+        </div>
+        <div class="menuWindow" id="name">
+            <div class="menuTitle">Enter Discord ID</div>
+            <input type="text" id="nameField" placeholder="     USER ID ">
+            <div class="button" id="confirm"><b>CONFIRM</b></div>
+            <div class="button" id="backN"><b>BACK</b></div>
+        </div>
+        <div class="menuWindow" id="scores">
+            <div class="menuTitle">LEADERBOARD</div>
+                <div class="grid-container">
+                    <div class="grid-item"> <b> #</b> </div>
+                    <div class="grid-item"><b>DICORD ID</b></div>
+                    <div class="grid-item"><b>SCORE</b></div>
+                    <div class="item1"><hr class="rounded"></div>         
+                </div>
+            <div class="button" id="backS"><b>BACK</b></div>
+        </div>
+        <div class="gameWindow">
+            <canvas id="gameCanvas"></canvas>
+            <div class="gameText" id="pausedText">PAUSED</div>
+            <div class="gameText" id="gameInfo">PRESS SPACE TO JUMP<br><br>PRESS ESC TO PAUSE</div>
+            <div class="gameScore"></div>
+        </div>
+        <div class="menuWindow" id="gameOverWindow">
+            <div class="menuTitle">GAME OVER</div>
+            <div class="button" id="gameR">RESTART</div>
+            <div class="button" id="gameM">MENU</div>
+        </div>
+        <div class="alert"></div>
+        <script src="node_modules/socket.io/client-dist/socket.io.js"></script>
+        <script type="text/javascript" src="index.js"></script>
+    </body>
+</html>
+
