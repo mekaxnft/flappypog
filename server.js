@@ -1,5 +1,4 @@
 const express = require('express');
-const cron = require('node-cron');
 const app = express();
 const http = require("http");
 const server = http.createServer(app);
@@ -8,11 +7,11 @@ const io = new Server(server);
 const fs = require('fs');
 const schedule = require('node-schedule')
 
+
+
 app.use(express.static(__dirname));
 app.get("/",(req, res)=>{res.sendFile(__dirname+"/index.html")});
-// server.listen(process.env.PORT,()=>{console.log("Running at Port 3000",process.env.PORT)});
-server.listen(3000,()=>{console.log("Running at Port 3000")});
-
+server.listen(process.env.PORT,()=>{console.log("Running at Port 3000",process.env.PORT)});
 let highscores;
 
 // Reset  highest score every week 
@@ -24,7 +23,6 @@ function resetHighscores() {
       else console.log('Highscores reset successful.');
     });
 }
-
 
 const rule = new schedule.RecurrenceRule();
 
@@ -41,11 +39,6 @@ rule.dayOfWeek = 0;
 schedule.scheduleJob(rule, function () {
     resetHighscores();
 });
-
-// schedule.scheduleJob('0 14 * * 0','UTC', () => {
-//     resetHighscores();
-// });
-
 
 fs.readFile("./highscores.json",(error,data)=>{
     if(error) console.log("Error reading data from dist\n"+error);
