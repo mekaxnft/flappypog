@@ -6,11 +6,13 @@ const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
 const fs = require('fs');
-
+const schedule = require('node-schedule')
 
 app.use(express.static(__dirname));
 app.get("/",(req, res)=>{res.sendFile(__dirname+"/index.html")});
-server.listen(process.env.PORT,()=>{console.log("Running at Port 3000",process.env.PORT)});
+// server.listen(process.env.PORT,()=>{console.log("Running at Port 3000",process.env.PORT)});
+server.listen(3000,()=>{console.log("Running at Port 3000")});
+
 let highscores;
 
 // Reset  highest score every week 
@@ -23,8 +25,27 @@ function resetHighscores() {
     });
 }
 
-// cron.schedule('*/1 * * * *', resetHighscores);
-cron.schedule('0 14 * * 0', resetHighscores);   // Reset at 2pm UTC sunday
+
+const rule = new schedule.RecurrenceRule();
+
+// Set the timezone to UTC
+rule.tz = 'UTC';
+
+// Set the schedule to run at 14:00:00 (2:00 PM) every Sunday (day of the week 0)
+rule.second = 0;
+rule.minute = 0;
+rule.hour = 14;
+rule.dayOfWeek = 0;
+
+// Schedule the job
+schedule.scheduleJob(rule, function () {
+    resetHighscores();
+});
+
+// schedule.scheduleJob('0 14 * * 0','UTC', () => {
+//     resetHighscores();
+// });
+
 
 fs.readFile("./highscores.json",(error,data)=>{
     if(error) console.log("Error reading data from dist\n"+error);
